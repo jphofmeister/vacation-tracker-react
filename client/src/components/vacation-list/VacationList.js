@@ -4,28 +4,32 @@ import { getDays } from '../../actions/dayActions';
 import { StyledVacationList } from '../styles/StyledVacationList';
 
 import VacationListTable from './VacationListTable';
+
 import Spinner from '../common/Spinner';
 
 const VacationList = () => {
-  const days = useSelector(state => state.day.days);
+  const { days, loading } = useSelector(state => ({
+    days: state.day.days,
+    loading: state.day.loading
+  }));
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getDays());
   }, []);
 
-  const onDeleteClick = () => {
-    dispatch()
-  }
+  let vacationListContent;
 
-  console.log();
+  if (days === null || loading) {
+    vacationListContent = <Spinner />
+  } else {
+    vacationListContent = <VacationListTable days={days} />
+  }
 
   return (
     <StyledVacationList>
       <h3>VacationList</h3>
-      {
-        !days.length == 0 ? <VacationListTable days={days} /> : <Spinner />
-      }
+      {vacationListContent}
     </StyledVacationList>
   );
 };
