@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getDays } from '../../actions/dayActions';
 import { StyledVacationList } from '../styles/StyledVacationList';
 
@@ -12,6 +12,7 @@ const VacationList = () => {
     days: state.day.days,
     loading: state.day.loading
   }));
+
   const dispatch = useDispatch();
 
   useEffect(() => {

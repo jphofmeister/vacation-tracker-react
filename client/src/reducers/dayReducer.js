@@ -1,4 +1,9 @@
-import { GET_DAYS, DELETE_DAY, DAY_LOADING } from '../actions/types';
+import {
+  GET_DAYS,
+  ADD_DAY,
+  DELETE_DAY,
+  DAY_LOADING
+} from '../actions/types';
 
 const initialState = {
   days: [],
@@ -18,6 +23,11 @@ export default function (state = initialState, action) {
         ...state,
         days: action.payload,
         loading: false
+      };
+    case ADD_DAY:
+      return {
+        ...state,
+        days: [action.payload, ...state.days]
       };
     case DELETE_DAY:
       return {

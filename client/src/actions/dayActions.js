@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import {
   GET_DAYS,
+  ADD_DAY,
   DELETE_DAY,
   DAY_LOADING,
   GET_ERRORS,
@@ -23,6 +24,25 @@ export const getDays = () => dispatch => {
       dispatch({
         type: GET_DAYS,
         payload: null
+      })
+    );
+}
+
+//add day to list of vacation days
+export const addDay = (dayInput) => dispatch => {
+  dispatch(clearErrors());
+  axios
+    .post('/api/day', dayInput)
+    .then(res =>
+      dispatch({
+        type: ADD_DAY,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
       })
     );
 }
